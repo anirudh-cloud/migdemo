@@ -1,0 +1,544 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \{\
+  "graph": \{\
+    "name": "MedwikiIntelligenceGraph",\
+    "version": "0.1-prototype",\
+    "scope": \{\
+      "disease_focus": "Type 2 Diabetes",\
+      "languages": ["en", "hi"],\
+      "intents": ["Understand", "Decide", "Adhere"]\
+    \},\
+    "schema": \{\
+      "global_props": ["confidence", "source", "timestamp", "lang", "locale"],\
+      "node_types": \{\
+        "UserExpression": \{\
+          "required": ["id", "label", "text", "lang", "locale", "channel", "timestamp", "source"],\
+          "optional": ["user_id_hash", "session_id", "intent", "confidence", "severity_hint", "embedding_ref"]\
+        \},\
+        "Concept": \{\
+          "required": ["id", "label", "name", "type", "canonical_lang", "timestamp", "source"],\
+          "optional": ["synonyms", "icd_like_ref", "snomed_like_ref", "confidence"]\
+        \},\
+        "Symptom": \{\
+          "required": ["id", "label", "name", "timestamp", "source"],\
+          "optional": ["body_system", "confidence"]\
+        \},\
+        "Disease": \{\
+          "required": ["id", "label", "name", "timestamp", "source", "verified"],\
+          "optional": ["risk_factors", "red_flags", "confidence"]\
+        \},\
+        "Medicine": \{\
+          "required": ["id", "label", "name", "timestamp", "source", "verified"],\
+          "optional": ["class", "dosing_notes", "contraindications", "confidence"]\
+        \},\
+        "BehaviorEvent": \{\
+          "required": ["id", "label", "user_id_hash", "event_type", "timestamp", "channel"],\
+          "optional": ["metadata", "confidence"]\
+        \},\
+        "ContentUnit": \{\
+          "required": ["id", "label", "title", "format", "lang", "timestamp", "source", "verified"],\
+          "optional": ["topic_tags", "difficulty", "duration_sec", "confidence"]\
+        \},\
+        "Outcome": \{\
+          "required": ["id", "label", "name", "timestamp", "source"],\
+          "optional": ["metric", "value", "confidence"]\
+        \}\
+      \},\
+      "edge_types": \{\
+        "EXPRESSES": \{ "from": "UserExpression", "to": "Concept", "props": ["confidence", "timestamp", "lang", "locale", "source"] \},\
+        "REFERS_TO": \{ "from": "Concept", "to": ["Disease", "Symptom", "Medicine"], "props": ["confidence", "timestamp", "source"] \},\
+        "MISUNDERSTANDS": \{ "from": "UserExpression", "to": "Concept", "props": ["tag", "confidence", "timestamp", "source"] \},\
+        "SEEKS": \{ "from": "BehaviorEvent", "to": ["Concept", "Disease"], "props": ["confidence", "timestamp", "source"] \},\
+        "CONSUMES": \{ "from": "BehaviorEvent", "to": "ContentUnit", "props": ["dwell_sec", "completion_pct", "confidence", "timestamp"] \},\
+        "LEADS_TO": \{ "from": ["BehaviorEvent", "ContentUnit"], "to": "Outcome", "props": ["confidence", "timestamp", "source"] \},\
+        "REINFORCES": \{ "from": "Outcome", "to": ["Concept", "BehaviorEvent"], "props": ["confidence", "timestamp", "source"] \},\
+        "CONTRADICTS": \{ "from": "Concept", "to": "Concept", "props": ["reason", "confidence", "timestamp", "source"] \}\
+      \}\
+    \},\
+    "nodes": [\
+      \{\
+        "id": "D_T2D",\
+        "label": "Disease",\
+        "name": "Type 2 Diabetes",\
+        "verified": true,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "risk_factors": ["family history", "overweight", "sedentary lifestyle"],\
+        "red_flags": ["confusion", "fainting", "severe dehydration"],\
+        "confidence": 0.99\
+      \},\
+      \{\
+        "id": "C_HYPERGLYCEMIA",\
+        "label": "Concept",\
+        "name": "High blood glucose",\
+        "type": "ClinicalState",\
+        "canonical_lang": "en",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": ["high sugar", "elevated glucose"],\
+        "confidence": 0.98\
+      \},\
+      \{\
+        "id": "C_PREDIABETES",\
+        "label": "Concept",\
+        "name": "Prediabetes",\
+        "type": "Condition",\
+        "canonical_lang": "en",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": ["borderline diabetes"],\
+        "confidence": 0.96\
+      \},\
+      \{\
+        "id": "S_THRIST",\
+        "label": "Symptom",\
+        "name": "Increased thirst",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "body_system": "Endocrine",\
+        "confidence": 0.9\
+      \},\
+      \{\
+        "id": "S_URINATION",\
+        "label": "Symptom",\
+        "name": "Frequent urination",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "body_system": "Endocrine",\
+        "confidence": 0.9\
+      \},\
+      \{\
+        "id": "M_METFORMIN",\
+        "label": "Medicine",\
+        "name": "Metformin",\
+        "verified": true,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "class": "Biguanide",\
+        "contraindications": ["severe kidney impairment"],\
+        "dosing_notes": "Typically with meals to reduce GI upset (doctor-directed)",\
+        "confidence": 0.97\
+      \},\
+      \{\
+        "id": "M_INSULIN",\
+        "label": "Medicine",\
+        "name": "Insulin",\
+        "verified": true,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "class": "Hormone therapy",\
+        "dosing_notes": "Individualized; must be clinician-directed",\
+        "confidence": 0.96\
+      \},\
+      \{\
+        "id": "C_DIABETES_GENERAL",\
+        "label": "Concept",\
+        "name": "Diabetes (general)",\
+        "type": "Condition",\
+        "canonical_lang": "en",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": ["sugar disease", "diabetes"],\
+        "confidence": 0.8\
+      \},\
+      \{\
+        "id": "C_T2D",\
+        "label": "Concept",\
+        "name": "Type 2 Diabetes",\
+        "type": "Condition",\
+        "canonical_lang": "en",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": ["type 2", "adult-onset diabetes (legacy term)"],\
+        "confidence": 0.99\
+      \},\
+      \{\
+        "id": "C_MED_ADHERENCE",\
+        "label": "Concept",\
+        "name": "Medication adherence",\
+        "type": "Behavior",\
+        "canonical_lang": "en",\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": ["taking medicines on time", "dose compliance"],\
+        "confidence": 0.95\
+      \},\
+      \{\
+        "id": "C_SUGAR_SEVERITY",\
+        "label": "Concept",\
+        "name": "Glucose severity interpretation",\
+        "type": "Reasoning",\
+        "canonical_lang": "en",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "confidence": 0.78\
+      \},\
+      \{\
+        "id": "CU_HI_METFORMIN",\
+        "label": "ContentUnit",\
+        "title": "Metformin: kaise kaam karti hai + miss ho jaye to kya karein",\
+        "format": "short_video",\
+        "lang": "hi",\
+        "verified": true,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "duration_sec": 45,\
+        "topic_tags": ["metformin", "adherence", "side effects"],\
+        "difficulty": "easy",\
+        "confidence": 0.92\
+      \},\
+      \{\
+        "id": "CU_EN_T2D_BASICS",\
+        "label": "ContentUnit",\
+        "title": "Type 2 Diabetes basics: what \'91high sugar\'92 means",\
+        "format": "short_article",\
+        "lang": "en",\
+        "verified": true,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "topic_tags": ["t2d", "ranges", "next steps"],\
+        "difficulty": "easy",\
+        "confidence": 0.92\
+      \},\
+      \{\
+        "id": "UE_EN_01",\
+        "label": "UserExpression",\
+        "text": "I think my sugar is a little high.",\
+        "lang": "en",\
+        "locale": "GB-EN",\
+        "channel": "chat",\
+        "timestamp": "2025-12-16T09:00:10Z",\
+        "source": "User",\
+        "intent": "Understand",\
+        "confidence": 0.62,\
+        "user_id_hash": "U_7f1",\
+        "session_id": "S_100"\
+      \},\
+      \{\
+        "id": "UE_HI_01",\
+        "label": "UserExpression",\
+        "text": "Mujhe sugar thodi si hai.",\
+        "lang": "hi",\
+        "locale": "IN-HI",\
+        "channel": "chat",\
+        "timestamp": "2025-12-16T09:01:12Z",\
+        "source": "User",\
+        "intent": "Understand",\
+        "confidence": 0.66,\
+        "user_id_hash": "U_7f1",\
+        "session_id": "S_100"\
+      \},\
+      \{\
+        "id": "UE_HI_11",\
+        "label": "UserExpression",\
+        "text": "Sugar normal ho gayi to dawai band kar du?",\
+        "lang": "hi",\
+        "locale": "IN-HI",\
+        "channel": "chat",\
+        "timestamp": "2025-12-16T09:03:08Z",\
+        "source": "User",\
+        "intent": "Decide",\
+        "confidence": 0.78,\
+        "user_id_hash": "U_7f1",\
+        "session_id": "S_100"\
+      \},\
+      \{\
+        "id": "UE_EN_08",\
+        "label": "UserExpression",\
+        "text": "I skipped my metformin today, is that okay?",\
+        "lang": "en",\
+        "locale": "GB-EN",\
+        "channel": "chat",\
+        "timestamp": "2025-12-16T09:03:55Z",\
+        "source": "User",\
+        "intent": "Adhere",\
+        "confidence": 0.8,\
+        "user_id_hash": "U_7f1",\
+        "session_id": "S_100"\
+      \},\
+      \{\
+        "id": "BE_01",\
+        "label": "BehaviorEvent",\
+        "user_id_hash": "U_7f1",\
+        "event_type": "Search",\
+        "channel": "app",\
+        "timestamp": "2025-12-16T09:00:20Z",\
+        "metadata": \{ "query": "sugar little high meaning" \},\
+        "confidence": 0.8\
+      \},\
+      \{\
+        "id": "BE_02",\
+        "label": "BehaviorEvent",\
+        "user_id_hash": "U_7f1",\
+        "event_type": "VideoWatched",\
+        "channel": "app",\
+        "timestamp": "2025-12-16T09:04:20Z",\
+        "metadata": \{ "content_id": "CU_HI_METFORMIN" \},\
+        "confidence": 0.9\
+      \},\
+      \{\
+        "id": "BE_03",\
+        "label": "BehaviorEvent",\
+        "user_id_hash": "U_7f1",\
+        "event_type": "ReminderAccepted",\
+        "channel": "pillpal",\
+        "timestamp": "2025-12-16T21:00:00Z",\
+        "metadata": \{ "medicine": "Metformin", "schedule": "2x daily" \},\
+        "confidence": 0.95\
+      \},\
+      \{\
+        "id": "O_01",\
+        "label": "Outcome",\
+        "name": "Improved adherence likelihood",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T21:05:00Z",\
+        "metric": "AdherenceRiskScore",\
+        "value": "-0.18",\
+        "confidence": 0.72\
+      \},\
+      \{\
+        "id": "lexicon",\
+        "label": "Concept",\
+        "name": "PrototypeLexicon",\
+        "type": "Meta",\
+        "canonical_lang": "en",\
+        "source": "Analyst",\
+        "timestamp": "2025-12-16T00:00:00Z",\
+        "synonyms": [],\
+        "confidence": 1.0,\
+        "expressions_en": [\
+          "I think my sugar is a little high.",\
+          "My fasting sugar was 135, is that bad?",\
+          "I feel thirsty all the time and pee a lot.",\
+          "Do I have diabetes if I eat sweets?",\
+          "Is prediabetes basically diabetes?",\
+          "Can diabetes be cured permanently?",\
+          "What\'92s the normal HbA1c range?",\
+          "I skipped my metformin today, is that okay?",\
+          "Metformin makes my stomach upset.",\
+          "Is insulin only for severe diabetes?",\
+          "Can I stop meds if my sugar is normal now?",\
+          "I feel shaky if I don\'92t eat\'97low sugar?",\
+          "What should I eat for diabetes in India?",\
+          "Does walking after meals reduce sugar?",\
+          "How dangerous is 250 sugar?",\
+          "Are fruits allowed in diabetes?",\
+          "I have diabetes symptoms but report is normal.",\
+          "My dad has diabetes\'97will I get it?",\
+          "Can stress raise sugar levels?",\
+          "What\'92s the difference between type 1 and type 2?"\
+        ],\
+        "expressions_hi": [\
+          "Mujhe sugar thodi si hai.",\
+          "Fasting sugar 135 aaya, kya diabetes hai?",\
+          "Bahut pyaas lagti hai aur bar-bar susu hoti hai.",\
+          "Mitha khane se diabetes ho jaati hai kya?",\
+          "Prediabetes matlab diabetes hi hai?",\
+          "Diabetes poori tarah theek ho sakti hai?",\
+          "HbA1c normal kitna hota hai?",\
+          "Aaj metformin miss ho gayi, kya hoga?",\
+          "Metformin se pet kharab hota hai.",\
+          "Insulin sirf serious case me hota hai kya?",\
+          "Sugar normal ho gayi to dawai band kar du?",\
+          "Khali pet kaanpna\'97low sugar hai kya?",\
+          "Diabetes me kya khana chahiye (Indian diet)?",\
+          "Khana khane ke baad walk karne se sugar kam hoti hai?",\
+          "Sugar 250 ho to kitna khatra hai?",\
+          "Diabetes me phal kha sakte hain kya?",\
+          "Symptoms hain par report normal\'97kya karu?",\
+          "Papa ko diabetes hai, mujhe bhi hogi?",\
+          "Tension se sugar badhti hai kya?",\
+          "Type 1 aur type 2 me kya farak hai?"\
+        ]\
+      \}\
+    ],\
+    "edges": [\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "C_HYPERGLYCEMIA",\
+        "to": "D_T2D",\
+        "confidence": 0.98,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "C_PREDIABETES",\
+        "to": "D_T2D",\
+        "confidence": 0.75,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "S_THRIST",\
+        "to": "D_T2D",\
+        "confidence": 0.7,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "S_URINATION",\
+        "to": "D_T2D",\
+        "confidence": 0.7,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "C_DIABETES_GENERAL",\
+        "to": "D_T2D",\
+        "confidence": 0.77,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:00:30Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "C_T2D",\
+        "to": "D_T2D",\
+        "confidence": 0.98,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "REFERS_TO",\
+        "from": "C_MED_ADHERENCE",\
+        "to": "M_METFORMIN",\
+        "confidence": 0.85,\
+        "source": "MedicalVerified",\
+        "timestamp": "2025-12-16T00:00:00Z"\
+      \},\
+      \{\
+        "type": "EXPRESSES",\
+        "from": "UE_EN_01",\
+        "to": "C_DIABETES_GENERAL",\
+        "confidence": 0.7,\
+        "lang": "en",\
+        "locale": "GB-EN",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:00:11Z"\
+      \},\
+      \{\
+        "type": "MISUNDERSTANDS",\
+        "from": "UE_EN_01",\
+        "to": "C_SUGAR_SEVERITY",\
+        "tag": "vague_severity",\
+        "confidence": 0.68,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:00:11Z"\
+      \},\
+      \{\
+        "type": "EXPRESSES",\
+        "from": "UE_HI_01",\
+        "to": "C_DIABETES_GENERAL",\
+        "confidence": 0.74,\
+        "lang": "hi",\
+        "locale": "IN-HI",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:01:13Z"\
+      \},\
+      \{\
+        "type": "MISUNDERSTANDS",\
+        "from": "UE_HI_01",\
+        "to": "C_T2D",\
+        "tag": "low_severity_assumption",\
+        "confidence": 0.61,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:01:13Z"\
+      \},\
+      \{\
+        "type": "EXPRESSES",\
+        "from": "UE_EN_08",\
+        "to": "C_MED_ADHERENCE",\
+        "confidence": 0.86,\
+        "lang": "en",\
+        "locale": "GB-EN",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:03:56Z"\
+      \},\
+      \{\
+        "type": "MISUNDERSTANDS",\
+        "from": "UE_EN_08",\
+        "to": "C_MED_ADHERENCE",\
+        "tag": "missed_dose_normalization",\
+        "confidence": 0.66,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:03:56Z"\
+      \},\
+      \{\
+        "type": "EXPRESSES",\
+        "from": "UE_HI_11",\
+        "to": "C_MED_ADHERENCE",\
+        "confidence": 0.88,\
+        "lang": "hi",\
+        "locale": "IN-HI",\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:03:09Z"\
+      \},\
+      \{\
+        "type": "MISUNDERSTANDS",\
+        "from": "UE_HI_11",\
+        "to": "C_T2D",\
+        "tag": "stop_meds_when_normal",\
+        "confidence": 0.79,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T09:03:09Z"\
+      \},\
+      \{\
+        "type": "SEEKS",\
+        "from": "BE_01",\
+        "to": "C_SUGAR_SEVERITY",\
+        "confidence": 0.82,\
+        "source": "User",\
+        "timestamp": "2025-12-16T09:00:20Z"\
+      \},\
+      \{\
+        "type": "CONSUMES",\
+        "from": "BE_02",\
+        "to": "CU_HI_METFORMIN",\
+        "dwell_sec": 44,\
+        "completion_pct": 0.96,\
+        "confidence": 0.92,\
+        "timestamp": "2025-12-16T09:04:20Z"\
+      \},\
+      \{\
+        "type": "LEADS_TO",\
+        "from": "CU_HI_METFORMIN",\
+        "to": "O_01",\
+        "confidence": 0.7,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T21:05:00Z"\
+      \},\
+      \{\
+        "type": "REINFORCES",\
+        "from": "O_01",\
+        "to": "C_MED_ADHERENCE",\
+        "confidence": 0.68,\
+        "source": "InferredRules",\
+        "timestamp": "2025-12-16T21:05:00Z"\
+      \}\
+    ],\
+    "example_queries": [\
+      \{\
+        "name": "Top misunderstanding patterns for T2D in Hindi",\
+        "pseudo_cypher": "MATCH (ue:UserExpression \{lang:'hi'\})-[m:MISUNDERSTANDS]->(c:Concept)\\nMATCH (ue)-[e:EXPRESSES]->(:Concept)-[:REFERS_TO]->(d:Disease \{id:'D_T2D'\})\\nRETURN m.tag AS misunderstanding, count(*) AS freq, avg(m.confidence) AS avg_conf\\nORDER BY freq DESC LIMIT 10;"\
+      \},\
+      \{\
+        "name": "Who needs intervention for stop-meds misconception",\
+        "pseudo_cypher": "MATCH (ue:UserExpression)-[m:MISUNDERSTANDS \{tag:'stop_meds_when_normal'\}]->(c:Concept)\\nRETURN ue.id, ue.text, ue.locale, m.confidence\\nORDER BY m.confidence DESC;"\
+      \},\
+      \{\
+        "name": "Recommend next best content in same language for the misconception",\
+        "pseudo_cypher": "MATCH (ue:UserExpression \{id:'UE_HI_11'\})-[:EXPRESSES]->(c:Concept)\\nMATCH (cu:ContentUnit \{lang:'hi'\})\\nWHERE any(tag IN cu.topic_tags WHERE toLower(tag) CONTAINS 'adherence' OR toLower(tag) CONTAINS 'metformin')\\nRETURN cu.id, cu.title, cu.format, cu.difficulty\\nLIMIT 3;"\
+      \}\
+    ]\
+  \}\
+\}\
+}
