@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "userId": "U_7f1",
+      "profileHint": "general + diabetes-curious, mixed intent",
+      "questions": [
+        {"text":"I think my sugar is a little high. What should I do first?","intent":"Understand"},
+        {"text":"Is fasting sugar 130 serious or manageable?","intent":"Understand"},
+        {"text":"Can stress make sugar go up even if diet is okay?","intent":"Understand"},
+        {"text":"If my sugar is normal for a week, can I stop medicine?","intent":"Decide"},
+        {"text":"What’s the difference between HbA1c and daily sugar readings?","intent":"Understand"},
+        {"text":"Do I need to check sugar every day?","intent":"Decide"},
+        {"text":"Metformin upsets my stomach. Should I stop or adjust?","intent":"Decide"},
+        {"text":"What happens if I miss one dose?","intent":"Adhere"},
+        {"text":"Are fruits allowed in diabetes?","intent":"Understand"},
+        {"text":"Is walking after meals actually useful?","intent":"Understand"},
+        {"text":"What does ‘prediabetes’ mean in simple terms?","intent":"Understand"},
+        {"text":"Do sweets directly cause diabetes?","intent":"Understand"},
+        {"text":"Sugar was 250 once. Is that an emergency?","intent":"Decide"},
+        {"text":"Should I see a doctor or can I manage with lifestyle only?","intent":"Decide"},
+        {"text":"Can I take my medicine at a different time if I forgot?","intent":"Adhere"},
+        {"text":"How do I control sugar with Indian food?","intent":"Understand"},
+        {"text":"Is insulin only for severe cases?","intent":"Understand"},
+        {"text":"Can diabetes be cured permanently?","intent":"Understand"},
+        {"text":"Why do I feel shaky when I don’t eat?","intent":"Understand"},
+        {"text":"My report is normal but I feel symptoms—what could that mean?","intent":"Understand"}
+      ]
+    },
+    {
+      "userId": "U_PREG_01",
+      "profileHint": "pregnancy safety + anxiety, decision-heavy",
+      "questions": [
+        {"text":"Is mild lower abdominal pain normal in early pregnancy?","intent":"Understand"},
+        {"text":"What are danger signs in pregnancy that need urgent care?","intent":"Understand"},
+        {"text":"Can I take paracetamol during pregnancy?","intent":"Decide"},
+        {"text":"Is it safe to take cough medicine while pregnant?","intent":"Decide"},
+        {"text":"I feel nausea all day—what helps safely?","intent":"Understand"},
+        {"text":"Is spotting normal or risky?","intent":"Decide"},
+        {"text":"Can I drink coffee during pregnancy?","intent":"Decide"},
+        {"text":"What foods should I avoid in first trimester?","intent":"Understand"},
+        {"text":"How much folic acid should I take?","intent":"Decide"},
+        {"text":"Is walking safe, and how much is recommended?","intent":"Understand"},
+        {"text":"I have acidity—what is safe to take?","intent":"Decide"},
+        {"text":"Can I continue my thyroid medicine during pregnancy?","intent":"Decide"},
+        {"text":"Is ultrasound frequency safe?","intent":"Understand"},
+        {"text":"What does high BP in pregnancy mean?","intent":"Understand"},
+        {"text":"Can I take iron tablets if they cause constipation?","intent":"Adhere"},
+        {"text":"What should I do if I missed my prenatal vitamins today?","intent":"Adhere"},
+        {"text":"Is back pain common in second trimester?","intent":"Understand"},
+        {"text":"When should I call the doctor vs wait?","intent":"Decide"},
+        {"text":"Is it okay to fast during pregnancy?","intent":"Decide"},
+        {"text":"What is gestational diabetes and who gets it?","intent":"Understand"}
+      ]
+    },
+    {
+      "userId": "U_DIAB_02",
+      "profileHint": "diabetes + adherence confusion, Hindi-leaning",
+      "questions": [
+        {"text":"Sugar thodi si hai—dawai roz lena zaroori hai kya?","intent":"Decide"},
+        {"text":"Fasting 140 aaya—kya diabetes confirm hai?","intent":"Decide"},
+        {"text":"HbA1c ka matlab kya hota hai?","intent":"Understand"},
+        {"text":"Dawai se pet kharab hota hai—kya karu?","intent":"Decide"},
+        {"text":"Aaj dose miss ho gayi—ab kya karna chahiye?","intent":"Adhere"},
+        {"text":"Sugar normal ho gayi to dawai band kar du?","intent":"Decide"},
+        {"text":"Diabetes me chawal khana band karna hota hai kya?","intent":"Understand"},
+        {"text":"Khana khane ke baad walk se sugar kam hoti hai kya?","intent":"Understand"},
+        {"text":"250 sugar ho to emergency hai kya?","intent":"Decide"},
+        {"text":"Phal kha sakte hain ya nahi?","intent":"Understand"},
+        {"text":"Insulin kab lagti hai?","intent":"Understand"},
+        {"text":"Stress se sugar badhti hai kya?","intent":"Understand"},
+        {"text":"Roz sugar check karna chahiye kya?","intent":"Decide"},
+        {"text":"Diabetes me weakness kyu hoti hai?","intent":"Understand"},
+        {"text":"Meetha kabhi-kabhi chalega kya?","intent":"Decide"},
+        {"text":"Dawai timing change kar sakte hain kya?","intent":"Adhere"},
+        {"text":"Metformin khane ke saath lena hota hai kya?","intent":"Adhere"},
+        {"text":"Type 1 aur Type 2 me kya farak hai?","intent":"Understand"},
+        {"text":"Diabetes poori tarah theek ho sakti hai kya?","intent":"Understand"},
+        {"text":"Report normal hai par symptoms hain—kya reason ho sakta hai?","intent":"Understand"}
+      ]
+    },
+    {
+      "userId": "U_BP_03",
+      "profileHint": "blood pressure anxiety + long-term meds concern",
+      "questions": [
+        {"text":"My BP is high sometimes—could it just be stress?","intent":"Understand"},
+        {"text":"What BP numbers are considered dangerous?","intent":"Understand"},
+        {"text":"Do I need BP medicine for life?","intent":"Decide"},
+        {"text":"If BP is normal today, can I skip the tablet?","intent":"Decide"},
+        {"text":"What happens if I miss one BP dose?","intent":"Adhere"},
+        {"text":"Is morning BP reading more important than evening?","intent":"Understand"},
+        {"text":"Does salt really affect BP that much?","intent":"Understand"},
+        {"text":"Can caffeine increase BP?","intent":"Understand"},
+        {"text":"I feel dizzy—could that be BP medicine?","intent":"Decide"},
+        {"text":"Should I check BP daily or weekly?","intent":"Decide"},
+        {"text":"Can walking reduce BP long-term?","intent":"Understand"},
+        {"text":"What is systolic vs diastolic in simple terms?","intent":"Understand"},
+        {"text":"Is headache always related to BP?","intent":"Understand"},
+        {"text":"Can BP medicines cause swelling?","intent":"Decide"},
+        {"text":"What lifestyle changes give the fastest BP improvement?","intent":"Decide"},
+        {"text":"How long does it take for BP medicine to start working?","intent":"Understand"},
+        {"text":"Should I take BP medicine at night or morning?","intent":"Decide"},
+        {"text":"Is home BP machine accurate?","intent":"Understand"},
+        {"text":"What should I do if BP suddenly spikes?","intent":"Decide"},
+        {"text":"Can anxiety make BP readings look worse than they are?","intent":"Understand"}
+      ]
+    }
+  ]
+}
